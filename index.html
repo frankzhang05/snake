@@ -7,29 +7,33 @@
     </head>
 
     <body>
+    <div id="background">
+    </div>
         <div>
-            <h1><span>Welcome to Snake Game!</span></h1>
+            <h1>Welcome to Snake Game!</h1>
         </div>
-        <div> <label>
+        <div>
+            Theme Colour:
             <select id="themeSelect" onchange="changeTheme()">
                 <option value="red">Red</option>
                 <option value="green">Green</option>
                 <option value="blue" selected="selected">Blue</option>
             </select>
-        </label> </div>
-        <div> <label>
+            Level:
             <select id="levelSelect" onchange="changeLevel()">
                 <option value="low">Rookie</option>
                 <option value="high">Master</option>
                 <option value="og" selected="selected">Original</option>
             </select>
-        </label> </div>
+        </div>
         <div>
             <input type="button" value="Start" id="pausePlay"/>
         </div>
-        <div id="score">0</div>
-        <div class="centeredParent">
-            <canvas id="mainCanvas" width="300" height="300" class="centered"></canvas>
+        <div class="score">
+            Score: <span id="score">0</span>
+        </div>
+        <div>
+            <canvas id="mainCanvas" width="300" height="300"></canvas>
         </div>
     </body>
 </html>
