@@ -1,39 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>Snake</title>
-        <link rel="stylesheet" href="styles.css">
-        <script src="snake.js" defer></script>
-    </head>
+<head>
+    <title>Snake</title>
+    <script src="snake.js" defer></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
 
-    <body>
-    <div id="background">
-    </div>
-        <div>
-            <h1>Welcome to Snake Game!</h1>
-        </div>
-        <div>
-            <label for="themeSelect">Theme Colour:</label>
-            <select id="themeSelect" onchange="changeTheme()">
-                <option value="red">Red</option>
-                <option value="green">Green</option>
-                <option value="blue" selected="selected">Blue</option>
-            </select>
-            <label for="levelSelect">Level:</label>
-            <select id="levelSelect" onchange="changeLevel()">
-                <option value="low">Rookie</option>
-                <option value="high">Master</option>
-                <option value="og" selected="selected">Original</option>
-            </select>
-        </div>
-        <div>
-            <input type="button" value="Start" id="pausePlay"/>
-        </div>
-        <div class="score">
-            Score: <span id="score">0</span>
-        </div>
-        <div>
-            <canvas id="mainCanvas" width="300" height="300"></canvas>
-        </div>
-    </body>
+<body>
+<div id="background">
+</div>
+<div>
+    <h1>Welcome to Snake Game!</h1>
+</div>
+<div>
+    <label for="themeSelect">Theme Colour:</label>
+    <select id="themeSelect" onchange="changeTheme()">
+        <option value="red">Red</option>
+        <option value="green">Green</option>
+        <option value="blue" selected="selected">Blue</option>
+    </select>
+    <label for="levelSelect">Level:</label>
+    <select id="levelSelect" onchange="changeLevel()">
+        <option value="low">Rookie</option>
+        <option value="high">Master</option>
+        <option value="og" selected="selected">Original</option>
+    </select>
+</div>
+<div>
+    <input type="button" value="Start" id="pausePlay"/>
+</div>
+<div class="score">
+    Score: <span id="score">0</span>
+</div>
+<div>
+    <canvas id="mainCanvas" width="300" height="300"></canvas>
+</div>
+</body>
 </html>
+
