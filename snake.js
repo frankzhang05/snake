@@ -69,23 +69,23 @@ function changeLevel() {
 
 // Pause Button
 pauseButton.addEventListener("click", function playPause() {
-    if (pauseButton.value === "Start"){
+    if (pauseButton.value === "Start") {
         pauseButton.value = "Pause";
         main();
         createFood();
         document.addEventListener("keydown", changeDirection);
     }
-    else if (pauseButton.value === "Pause"){
+    else if (pauseButton.value === "Pause") {
         pauseButton.value = "Resume";
         gamePaused = true;
         main();
     }
-    else if (pauseButton.value === "Resume"){
+    else if (pauseButton.value === "Resume") {
         pauseButton.value = "Pause";
         gamePaused = false;
         main();
     }
-    else if (pauseButton.value === "Restart"){
+    else if (pauseButton.value === "Restart") {
         window.location.reload();
     }
     else {
@@ -95,11 +95,26 @@ pauseButton.addEventListener("click", function playPause() {
 
 // Snake Coordinates
 let snkLoc = [
-    {x: 150, y: 150},
-    {x: 140, y: 150},
-    {x: 130, y: 150},
-    {x: 120, y: 150},
-    {x: 110, y: 150},
+    {
+        x: 150,
+        y: 150
+    },
+    {
+        x: 140,
+        y: 150
+    },
+    {
+        x: 130,
+        y: 150
+    },
+    {
+        x: 120,
+        y: 150
+    },
+    {
+        x: 110,
+        y: 150
+    },
 ];
 
 // Functions
@@ -132,14 +147,18 @@ function drawFood() {
     ctx.strokeRect(foodX, foodY, 10, 10);
 }
 function advanceSnake() {
-    const head = {x: snkLoc[0].x + dx, y: snkLoc[0].y + dy};
+    const head = {
+        x: snkLoc[0].x + dx,
+        y: snkLoc[0].y + dy
+    };
     snkLoc.unshift(head);
     const eatFood = snkLoc[0].x === foodX && snkLoc[0].y === foodY;
     if (eatFood) {
         score += 10;
         document.getElementById("score").innerHTML = score;
         GAME_SPEED += dv;
-        if (GAME_SPEED < 0) GAME_SPEED = 0;
+        if (GAME_SPEED < 0)
+            GAME_SPEED = 0;
         createFood()
     }
     else {
@@ -148,7 +167,8 @@ function advanceSnake() {
 }
 function gameEnd() {
     for (let i = 4; i < snkLoc.length; i++) {
-        if (snkLoc[i].x === snkLoc[0].x && snkLoc[i].y === snkLoc[0].y) return true;
+        if (snkLoc[i].x === snkLoc[0].x && snkLoc[i].y === snkLoc[0].y)
+            return true;
     }
 
     const leftWall = snkLoc[0].x < 0;
@@ -159,14 +179,15 @@ function gameEnd() {
     return leftWall || rightWall || topWall || bottomWall;
 }
 function random(min, max) {
-    return Math.round((Math.random() * (max-min) + min) / 10) * 10;
+    return Math.round((Math.random() * (max - min) + min) / 10) * 10;
 }
 function createFood() {
     foodX = random(0, gameCanvas.width - 10);
     foodY = random(0, gameCanvas.height - 10);
     snkLoc.forEach(function foodOnSnake(part) {
         const foodOnSnakeBool = part.x === foodX && part.y === foodY;
-        if (foodOnSnakeBool) createFood();
+        if (foodOnSnakeBool)
+            createFood();
     });
 }
 function drawSnake() {
@@ -179,7 +200,8 @@ function drawSnakePart(snakePart) {
     ctx.strokeRect(snakePart.x, snakePart.y, 10, 10);
 }
 function changeDirection(event) {
-    if (changingDirection) return;
+    if (changingDirection)
+        return;
     changingDirection = true;
     const keyPressed = event.keyCode;
     const upDirection = dy === -10;
