@@ -13,21 +13,36 @@
     <h1>Welcome to Snake Game!</h1>
 </div>
 <div>
-    <label for="themeSelect">Theme Colour:</label>
-    <select id="themeSelect" onchange="changeTheme()">
-        <option value="red">Red</option>
-        <option value="green">Green</option>
-        <option value="blue" selected="selected">Blue</option>
-    </select>
-    <label for="levelSelect">Level:</label>
-    <select id="levelSelect" onchange="changeLevel()">
-        <option value="low">Rookie</option>
-        <option value="high">Master</option>
-        <option value="og" selected="selected">Original</option>
-    </select>
+    <span>
+        <label for="themeSelect">Theme Colour:</label>
+        <select id="themeSelect" onchange="changeTheme()">
+            <option value="red">Red</option>
+            <option value="green">Green</option>
+            <option value="blue" selected="selected">Blue</option>
+            <option value="custom">Custom</option>
+        </select>
+    </span>
+    <span id="custom-color" style="display: none">
+        <label>Border:</label>
+        <label>
+            <input type="color" id="bdColor" name="bdColor" value="#4169E1">
+        </label>
+        <label>Fill:</label>
+        <label>
+            <input type="color" id="bgColor" name="bdColor" value="#1E90FF">
+        </label>
+    </span>
+    <span>
+        <label for="levelSelect">Level:</label>
+        <select id="levelSelect" onchange="changeLevel()">
+            <option value="low">Rookie</option>
+            <option value="high">Master</option>
+            <option value="og" selected="selected">Original</option>
+        </select>
+    </span>
 </div>
 <div>
-    <input type="button" value="Start" id="pausePlay"/>
+    <input type="button" value="Start" id="pausePlay" class="pausePlay"/>
 </div>
 <div class="score">
     Score: <span id="score">0</span>

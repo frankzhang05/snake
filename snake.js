@@ -1,6 +1,6 @@
 // Variable Declarations
-let SNK_BD = 'RoyalBlue';
-let SNK_BG = 'DodgerBlue';
+let snkBD = 'RoyalBlue';
+let snkBG = 'DodgerBlue';
 let score = 0;
 let changingDirection = false;
 let foodX;
@@ -9,40 +9,63 @@ let dx = 10;
 let dy = 0;
 let dv = 0;
 let gamePaused = false;
-let GAME_SPEED = 100;
+let gameSpeed = 100;
+let button = false;
 
 // Constant Declarations
 const CNVS_BD = 'Black';
 const CNVS_BG = 'White';
 const FOOD_BD = 'DarkRed';
 const FOOD_BG = 'Red';
-const gameCanvas = document.getElementById("mainCanvas");
-const ctx = gameCanvas.getContext("2d");
+const CNVS = document.getElementById("mainCanvas");
+const CTX = CNVS.getContext("2d");
 const LEFT_KEY = 37;
 const RIGHT_KEY = 39;
 const UP_KEY = 38;
 const DOWN_KEY = 40;
-const pauseButton = document.getElementById("pausePlay");
+const PAUSE_BTN = document.getElementById("pausePlay");
+const COLOR_SEL_BD = document.getElementById("bdColor");
+const COLOR_SEL_BG = document.getElementById("bgColor");
+const COLOR_SEL_STYLE = document.getElementById("custom-color").style;
 
 // Theme Selector
 function changeTheme() {
     let theme = document.getElementById("themeSelect").value;
-    if (theme === "red")
-    {
-        SNK_BD = 'IndianRed';
-        SNK_BG = 'PaleVioletRed';
+    if (theme === "red") {
+        COLOR_SEL_STYLE.display= "none";
+        snkBD = "IndianRed";
+        snkBG = "PaleVioletRed";
     }
     else if (theme === "green") {
-        SNK_BD = "DarkSeaGreen";
-        SNK_BG = "LightSeaGreen";
+        COLOR_SEL_STYLE.display = "none";
+        snkBD = "DarkSeaGreen";
+        snkBG = "LightSeaGreen";
     }
     else if (theme === "blue") {
-        SNK_BD = 'RoyalBlue';
-        SNK_BG = 'DodgerBlue';
+        COLOR_SEL_STYLE.display = "none";
+        snkBD = "RoyalBlue";
+        snkBG = "DodgerBlue";
+    }
+    else if (theme === "custom") {
+        COLOR_SEL_STYLE.display = "inline-block";
+        snkBD = "RoyalBlue";
+        snkBG = "DodgerBlue";
+        COLOR_SEL_BD.addEventListener("change", function customBD(){
+            snkBD = COLOR_SEL_BD.value;
+            clearCanvas();
+            drawFood();
+            drawSnake();
+        });
+        COLOR_SEL_BG.addEventListener("change", function customBG(){
+            snkBG = COLOR_SEL_BG.value;
+            clearCanvas();
+            drawFood();
+            drawSnake();
+        });
     }
     else {
-        SNK_BD = 'Red';
-        SNK_BG = 'Yellow';
+        snkBD = 'Red';
+        snkBG = 'Yellow';
     }
     clearCanvas();
     drawFood();
@@ -52,44 +75,35 @@ function changeTheme() {
 // Level Selector
 function changeLevel() {
     let usrLevel = document.getElementById("levelSelect").value;
-    if (usrLevel === "low")
-    {
-        dv = -5;
-    }
-    else if (usrLevel === "high") {
-        dv = -15;
-    }
-    else if (usrLevel === "og") {
-        dv = 0;
-    }
-    else {
-        dv = 999;
-    }
+    if (usrLevel === "low") dv = -5;
+    else if (usrLevel === "high") dv = -15;
+    else if (usrLevel === "og") dv = 0;
+    else dv = 999;
 }
 
 // Pause Button
-pauseButton.addEventListener("click", function playPause() {
-    if (pauseButton.value === "Start") {
-        pauseButton.value = "Pause";
+PAUSE_BTN.addEventListener("click", function playPause() {
+    if (PAUSE_BTN.value === "Start") {
+        PAUSE_BTN.value = "Pause";
         main();
         createFood();
         document.addEventListener("keydown", changeDirection);
     }
-    else if (pauseButton.value === "Pause") {
-        pauseButton.value = "Resume";
+    else if (PAUSE_BTN.value === "Pause") {
+        PAUSE_BTN.value = "Resume";
         gamePaused = true;
         main();
     }
-    else if (pauseButton.value === "Resume") {
-        pauseButton.value = "Pause";
+    else if (PAUSE_BTN.value === "Resume") {
+        PAUSE_BTN.value = "Pause";
         gamePaused = false;
         main();
     }
-    else if (pauseButton.value === "Restart") {
+    else if (PAUSE_BTN.value === "Restart") {
         window.location.reload();
     }
     else {
-        pauseButton.value = "Impossible";
+        PAUSE_BTN.value = "Impossible";
     }
 });
 
@@ -120,7 +134,7 @@ let snkLoc = [
 // Functions
 function main() {
     if (gameEnd()) {
-        pauseButton.value = "Restart";
+        PAUSE_BTN.value = "Restart";
         return;
     }
     if (!gamePaused) {
@@ -131,20 +145,20 @@ function main() {
             advanceSnake();
             drawSnake();
             main();
-        }, GAME_SPEED)
+        }, gameSpeed)
     }
 }
 function clearCanvas() {
-    ctx.fillStyle = CNVS_BG;
-    ctx.strokeStyle = CNVS_BD;
-    ctx.fillRect(0, 0, gameCanvas.width, gameCanvas.height);
-    ctx.strokeRect(0, 0, gameCanvas.width, gameCanvas.height);
+    CTX.fillStyle = CNVS_BG;
+    CTX.strokeStyle = CNVS_BD;
+    CTX.fillRect(0, 0, CNVS.width, CNVS.height);
+    CTX.strokeRect(0, 0, CNVS.width, CNVS.height);
 }
 function drawFood() {
-    ctx.fillStyle = FOOD_BG;
-    ctx.strokeStyle = FOOD_BD;
-    ctx.fillRect(foodX, foodY, 10, 10);
-    ctx.strokeRect(foodX, foodY, 10, 10);
+    CTX.fillStyle = FOOD_BG;
+    CTX.strokeStyle = FOOD_BD;
+    CTX.fillRect(foodX, foodY, 10, 10);
+    CTX.strokeRect(foodX, foodY, 10, 10);
 }
 function advanceSnake() {
     const head = {
@@ -156,9 +170,9 @@ function advanceSnake() {
     if (eatFood) {
         score += 10;
         document.getElementById("score").innerHTML = score;
-        GAME_SPEED += dv;
-        if (GAME_SPEED < 0)
-            GAME_SPEED = 0;
+        gameSpeed += dv;
+        if (gameSpeed < 0)
+            gameSpeed = 0;
         createFood()
     }
     else {
@@ -172,9 +186,9 @@ function gameEnd() {
     }
 
     const leftWall = snkLoc[0].x < 0;
-    const rightWall = snkLoc[0].x > gameCanvas.width - 10;
+    const rightWall = snkLoc[0].x > CNVS.width - 10;
     const topWall = snkLoc[0].y < 0;
-    const bottomWall = snkLoc[0].y > gameCanvas.height - 10;
+    const bottomWall = snkLoc[0].y > CNVS.height - 10;
 
     return leftWall || rightWall || topWall || bottomWall;
 }
@@ -182,8 +196,8 @@ function random(min, max) {
     return Math.round((Math.random() * (max - min) + min) / 10) * 10;
 }
 function createFood() {
-    foodX = random(0, gameCanvas.width - 10);
-    foodY = random(0, gameCanvas.height - 10);
+    foodX = random(0, CNVS.width - 10);
+    foodY = random(0, CNVS.height - 10);
     snkLoc.forEach(function foodOnSnake(part) {
         const foodOnSnakeBool = part.x === foodX && part.y === foodY;
         if (foodOnSnakeBool)
@@ -194,10 +208,10 @@ function drawSnake() {
     snkLoc.forEach(drawSnakePart);
 }
 function drawSnakePart(snakePart) {
-    ctx.fillStyle = SNK_BG;
-    ctx.strokeStyle = SNK_BD;
-    ctx.fillRect(snakePart.x, snakePart.y, 10, 10);
-    ctx.strokeRect(snakePart.x, snakePart.y, 10, 10);
+    CTX.fillStyle = snkBG;
+    CTX.strokeStyle = snkBD;
+    CTX.fillRect(snakePart.x, snakePart.y, 10, 10);
+    CTX.strokeRect(snakePart.x, snakePart.y, 10, 10);
 }
 function changeDirection(event) {
     if (changingDirection)

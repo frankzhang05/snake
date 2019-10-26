@@ -30,7 +30,7 @@ h1 {
     margin: 0;
 }
 
-input[type=button] {
+.pausePlay {
     background-color: DodgerBlue;
     border: none;
     color: white;
@@ -40,7 +40,22 @@ input[type=button] {
     border-radius: 10px;
 }
 
-input[type=button]:hover {
+.pausePlay:hover {
+    background-color: RoyalBlue;
+}
+
+.color-submit {
+    background-color: DodgerBlue;
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 15px;
+    border-radius: 10px;
+    margin-left: 10px;
+}
+
+.color-submit:hover {
     background-color: RoyalBlue;
 }
 
@@ -75,4 +90,8 @@ select::-ms-expand {
         background: none\9;
         padding: 5px\9;
     }
+}
+
+#custom-color {
+    margin-right: 20px;
 }
